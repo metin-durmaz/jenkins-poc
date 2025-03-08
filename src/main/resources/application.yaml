@@ -1,0 +1,19 @@
+server:
+  port: 7080
+
+spring:
+  application:
+    name: order
+
+  datasource:
+    url: jdbc:postgresql://localhost:54321/postgres?currentSchema=order_ms
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
