@@ -1,0 +1,27 @@
+pipeline {
+    agent { label 'agent-1' }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                cleanWs()
+                checkout scmGit(branches: [[name: "$BRANCH_NAME"]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/metin-durmaz/jenkins-poc.git']])
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                    pwd
+                    ls -ltr
+
+                    echo "Maven Build Started"
+                    mvn clean package -DskipTests -U
+                    
+                    cd target/
+                    mv order-0.0.1-SNAPSHOT.jar order-0.0.1-SNAPSHOT-${BUILD_NUMBER}.jar
+
+                    echo "Build Completed"'''
+            }
+        }
+    }
+}
