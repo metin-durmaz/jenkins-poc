@@ -17,3 +17,15 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /order/v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /order/swagger-ui.html
+
+#rsa:
+#  public-key: classpath:certs/public.pem
