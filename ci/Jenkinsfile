@@ -20,7 +20,13 @@ pipeline {
                     cd target/
                     mv order-0.0.1-SNAPSHOT.jar order-0.0.1-SNAPSHOT-${BUILD_NUMBER}.jar
 
-                    echo "Build Completed"'''
+                    echo "Build Completed"                    
+                    '''
+            }
+        }
+        stage('Test') {
+            steps {
+                sh "pwd"
             }
         }
     }
