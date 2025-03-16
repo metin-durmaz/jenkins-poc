@@ -10,23 +10,19 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '''
-                    pwd
-                    ls -ltr
-
-                    echo "Maven Build Started"
-                    mvn clean package -DskipTests -U
-                    
-                    cd target/
-                    mv order-0.0.1-SNAPSHOT.jar order-0.0.1-SNAPSHOT-${BUILD_NUMBER}.jar
-
-                    echo "Build Completed"                    
-                    '''
+                sh "mvn clean package -DskipTests -U"
+                sh "mv order-0.0.1-SNAPSHOT.jar order-0.0.1-SNAPSHOT-${BUILD_NUMBER}.jar"
             }
         }
         stage('Test') {
             steps {
                 sh "mvn clean test"
+            }
+
+            post {
+                always {
+                    junit testResults: 'target/surefire-reports/*.xml', skipPublishingChecks: true
+                }
             }
         }
     }
