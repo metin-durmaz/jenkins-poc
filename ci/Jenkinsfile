@@ -12,6 +12,7 @@ pipeline {
             steps {
                 sh "mvn clean package -DskipTests -U"
                 sh "cd target/"
+                sh "pwd"
                 sh "mv order-0.0.1-SNAPSHOT.jar order-0.0.1-SNAPSHOT-${BUILD_NUMBER}.jar"
             }
         }
