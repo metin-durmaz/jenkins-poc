@@ -1,0 +1,32 @@
+pipeline {
+    agent { label 'agent-1' }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                cleanWs()
+                checkout scmGit(branches: [[name: "$BRANCH_NAME"]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/metin-durmaz/jenkins-poc.git']])
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                    mvn clean package -DskipTests -U
+                    cd target/
+                    mv demo-0.0.1-SNAPSHOT.jar demo-0.0.1-SNAPSHOT-${BUILD_NUMBER}.jar
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                sh "mvn test"
+            }
+
+            post {
+                always {
+                    junit testResults: 'target/surefire-reports/*.xml', skipPublishingChecks: true
+                }
+            }
+        }
+    }
+}

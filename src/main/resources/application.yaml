@@ -1,0 +1,36 @@
+server:
+  port: 7081
+
+spring:
+  application:
+    name: demo
+
+  datasource:
+    url: jdbc:postgresql://localhost:54321/postgres?currentSchema=demo
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /demo/v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /demo/swagger-ui.html
+    display-request-duration: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+rsa:
+  public-key: classpath:certs/public.pem
+
+my-env: ${MY_ENV:default}
