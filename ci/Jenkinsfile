@@ -8,12 +8,12 @@ pipeline {
                 checkout scmGit(branches: [[name: "$BRANCH_NAME"]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/metin-durmaz/jenkins-poc.git']])
             }
         }
-        stage('Build') {
+        stage('Maven Package') {
             steps {
                 sh '''
-                    mvn clean package -DskipTests -U
+                    mvn -s settings_infra.xml clean package -DskipTests -U -Dspring.profiles.active=ci
                     cd target/
-                    mv demo-0.0.1-SNAPSHOT.jar demo-0.0.1-SNAPSHOT-${BUILD_NUMBER}.jar
+                    mv demo.jar demo-${BUILD_NUMBER}.jar
                 '''
             }
         }
