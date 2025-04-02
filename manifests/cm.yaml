@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-cm
+  namespace: demo
+data:
+  MY_ENV: "Deneme 1234"

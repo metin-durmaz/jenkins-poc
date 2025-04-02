@@ -20,14 +20,14 @@ COPY --from=builder ${APP}/application/ ./
 RUN chown -R uts:uts /app
 USER uts
 
-ENV MY_ENV=metin
 EXPOSE 7081
 
 CMD ["sh", "-c", "java $DEFAULT_MANAGED_OPTS $JAVA_OPTS org.springframework.boot.loader.launch.JarLauncher"]
 
 
+# java -Djarmode=layertools -jar target/demo.jar list => deprecated
 # java -Djarmode=tools -jar target/demo.jar list-layers
 
 # mvn -s settings_infra.xml clean package -Dmaven.test.failure.ignore=true -Dspring.profiles.active=ci
-# docker image build --platform linux/amd64 --build-arg APP=demo -t demo:linux .
-# docker image build --build-arg APP=demo -t demo:mac .
+# docker image build --platform linux/amd64 --build-arg APP=demo -t demo:linux-v1 .
+# docker image build --build-arg APP=demo -t demo:mac-v1 .

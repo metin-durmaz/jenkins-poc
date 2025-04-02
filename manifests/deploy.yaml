@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  namespace: demo
+  labels:
+    app: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      name: demo
+      labels:
+        app: demo
+    spec:
+      containers:
+        - name: demo
+          image: demo:linux-v1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: demo-cm
+          ports:
+            - containerPort: 7081
+              protocol: TCP
+      restartPolicy: Always

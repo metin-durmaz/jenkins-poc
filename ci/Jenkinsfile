@@ -11,7 +11,7 @@ pipeline {
         stage('Maven Package') {
             steps {
                 sh '''
-                    mvn -s settings_infra.xml clean package -DskipTests -U -Dspring.profiles.active=ci
+                    mvn clean package -DskipTests -U
                     cd target/
                     mv demo.jar demo-${BUILD_NUMBER}.jar
                 '''
