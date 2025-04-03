@@ -12,8 +12,6 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
 
 
