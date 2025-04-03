@@ -22,6 +22,8 @@ USER uts
 
 EXPOSE 7081
 
+ENV SPRING_PROFILES_ACTIVE=demo
+
 CMD ["sh", "-c", "java $DEFAULT_MANAGED_OPTS $JAVA_OPTS org.springframework.boot.loader.launch.JarLauncher"]
 
 

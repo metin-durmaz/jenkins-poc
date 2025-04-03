@@ -18,8 +18,8 @@ spec:
     spec:
       containers:
         - name: demo
-          image: host.docker.internal:8082/demo:linux-v1
-          imagePullPolicy: IfNotPresent
+          image: host.docker.internal:8082/demo:linux-v3
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: demo-cm

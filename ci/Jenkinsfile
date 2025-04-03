@@ -2,6 +2,15 @@ pipeline {
     agent { label 'agent-1' }
 
     stages {
+        stage('Initialize') {
+            steps {
+                script {
+                    def timestamp = sh(script: "date +%Y%m%d-%H%M%S", returnStdout: true).trim()
+                    env.TIMESTAMP = timestamp
+                    env.IMAGE_TAG = "${BUILD_NUMBER}_${timestamp}"
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 cleanWs()
@@ -10,21 +19,36 @@ pipeline {
         }
         stage('Maven Package') {
             steps {
-                sh '''
+                sh """
                     mvn clean package -DskipTests -U
                     cd target/
-                    mv demo.jar demo-${BUILD_NUMBER}.jar
-                '''
+                    mv demo.jar demo-${BUILD_NUMBER}_${TIMESTAMP}.jar
+                """
             }
         }
         stage('Test') {
             steps {
                 sh "mvn test"
             }
-
             post {
                 always {
                     junit testResults: 'target/surefire-reports/*.xml', skipPublishingChecks: true
+                }
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                sh "docker image build --platform linux/amd64 --build-arg APP=demo -t localhost:8082/demo-app:${IMAGE_TAG} ."
+            }
+        }
+        stage('Docker Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
+                    sh """
+                        echo "\$NEXUS_PASSWORD" | docker login -u "\$NEXUS_USERNAME" --password-stdin localhost:8082
+                        docker push localhost:8082/demo-app:${IMAGE_TAG}
+                        docker push localhost:8082/demo-app:latest
+                    """
                 }
             }
         }
