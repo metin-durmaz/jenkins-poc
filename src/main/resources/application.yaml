@@ -10,21 +10,10 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
-    hikari:
-      minimum-idle: 5
-      maximum-pool-size: 15
-      idle-timeout: 30000
-      pool-name: Hikari
-      auto-commit: true
-      connection-timeout: 30000
-      transaction-isolation: TRANSACTION_READ_COMMITTED
 
   jpa:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
 
 
