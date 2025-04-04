@@ -30,7 +30,3 @@ rsa:
   public-key: classpath:certs/public.pem
 
 my-env: ${MY_ENV:default}
-
-logging:
-  pattern:
-    dateformat: yyyy-MM-dd' 'HH:mm:ss,Europe/Istanbul
