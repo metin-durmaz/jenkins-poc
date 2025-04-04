@@ -6,7 +6,6 @@ metadata:
 data:
   MY_ENV: "Deneme 1234"
   SPRING_PROFILES_ACTIVE: "demo"
-  TZ: "Europe/Istanbul"
   JAVA_TOOL_OPTIONS: |
     -Duser.timezone=Europe/Istanbul
     -Xms512m
