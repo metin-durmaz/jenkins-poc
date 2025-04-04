@@ -5,3 +5,4 @@ metadata:
   namespace: demo
 data:
   MY_ENV: "Deneme 1234"
+  SPRING_PROFILES_ACTIVE: "demo"

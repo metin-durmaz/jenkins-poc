@@ -22,7 +22,7 @@ USER uts
 
 EXPOSE 7081
 
-ENV SPRING_PROFILES_ACTIVE=demo
+# ENV SPRING_PROFILES_ACTIVE=demo => configmap'te geçildi.
 
 CMD ["sh", "-c", "java $DEFAULT_MANAGED_OPTS $JAVA_OPTS org.springframework.boot.loader.launch.JarLauncher"]
 
@@ -30,6 +30,7 @@ CMD ["sh", "-c", "java $DEFAULT_MANAGED_OPTS $JAVA_OPTS org.springframework.boot
 # java -Djarmode=layertools -jar target/demo.jar list => deprecated
 # java -Djarmode=tools -jar target/demo.jar list-layers
 
+# ./mvnw -s ~/.m2/settings_local.xml clean package -DskipTests -U
 # mvn -s settings_infra.xml clean package -Dmaven.test.failure.ignore=true -Dspring.profiles.active=ci
 # docker image build --platform linux/amd64 --build-arg APP=demo -t demo:linux-v1 .
 # docker image build --build-arg APP=demo -t demo:mac-v1 .
