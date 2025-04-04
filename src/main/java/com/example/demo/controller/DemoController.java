@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -21,11 +19,14 @@ public class DemoController {
 
     private final Environment environment;
 
-    @GetMapping("/active-env")
-    public String activeEnv() {
-        System.out.println("*** " + Arrays.stream(environment.getActiveProfiles()).findFirst());
-        System.out.println("*** " + environment.getProperty("spring.datasource.url"));
-        return environment.getProperty("spring.profiles.active");
+    @GetMapping("/active-profile")
+    public String activeProfile() {
+
+        String profile = environment.getProperty("spring.profiles.active");
+
+        System.out.println("*** Active Profile " + profile);
+        System.out.println("*** DB URL " + environment.getProperty("spring.datasource.url"));
+        return profile;
     }
 
     @GetMapping("/api1")

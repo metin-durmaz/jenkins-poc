@@ -4,16 +4,16 @@ server:
 spring:
   application:
     name: demo
+  profiles:
+    active: development
 
   datasource:
     url: jdbc:postgresql://localhost:54321/postgres?currentSchema=demo
     username: postgres
     password: postgres
-    driver-class-name: org.postgresql.Driver
 
   jpa:
     open-in-view: false
-
 
 springdoc:
   api-docs:
